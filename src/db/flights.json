@@ -8,5 +8,15 @@
     "capacidad": 231,
     "asientosOcupados": 0,
     "pasajeros": []
+  },
+  {
+    "id": "10232082-2216-4360-80d7-ad89af347bec",
+    "numero": "f121",
+    "origen": "argentina",
+    "destino": "brasil",
+    "fecha": "2025-12-25",
+    "capacidad": 123,
+    "asientosOcupados": 0,
+    "pasajeros": []
   }
 ]

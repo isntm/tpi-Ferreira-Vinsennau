@@ -32,7 +32,7 @@ export async function ejecutarMenuPrincipal() {
           const numero = await leerLinea("Número de vuelo: ");
           const origen = await leerLinea("Origen: ");
           const destino = await leerLinea("Destino: ");
-          const fecha = await leerLinea("Fecha (YYYY-MM-DD): ");
+          const fecha = await leerLinea("Fecha (YYYY-MM-DD o DD/MM/YYYY): ");
           const capacidad = await leerLinea("Capacidad (entero > 0): ");
 
           const creado = await createVuelo({ numero, origen, destino, fecha, capacidad });
