@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "a90fe86d-431d-4509-b786-5527213ef73f",
+    "numero": "2131",
+    "origen": "malasia",
+    "destino": "argentina",
+    "fecha": "2025-10-15",
+    "capacidad": 231,
+    "asientosOcupados": 0,
+    "pasajeros": []
+  }
+]
