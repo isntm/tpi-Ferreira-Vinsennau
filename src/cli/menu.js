@@ -2,6 +2,9 @@
 import { leerLinea, pausar } from "./prompts.js";
 // 2) Importamos servicios ya implementados
 import { createVuelo, listVuelos } from "../service/flightService.js";
+// 12) Importamos servicios de reservas ya implementados
+import { crearReserva, listarReservas } from "../service/reservationService.js";
+
 
 /**
  * 3) Muestra el menú principal y gestiona la navegación del usuario.
@@ -47,17 +50,26 @@ export async function ejecutarMenuPrincipal() {
           break;
         }
 
-        case "3":
-          console.log("\n[Aquí luego llamaremos a: crear reserva]");
+        case "3": {
+          // Crear reserva
+          const vueloId = await leerLinea("ID de vuelo: ");
+          const pasajeroNombre = await leerLinea("Nombre del pasajero: ");
+          const pasajeroEmail  = await leerLinea("Email del pasajero: ");
+          const r = await crearReserva({ vueloId, pasajeroNombre, pasajeroEmail });
+          console.log("✅ Reserva creada:", r);
           break;
+        }
 
         case "4":
           console.log("\n[Aquí luego llamaremos a: cambiar fecha de reserva]");
           break;
 
-        case "5":
-          console.log("\n[Aquí luego llamaremos a: listar reservas]");
+        case "5": {
+          // Listar reservas
+          const reservas = await listarReservas();
+          console.table(reservas);
           break;
+        }
 
         case "6":
           console.log("\n[Aquí luego llamaremos a: reporte de vuelos más solicitados]");

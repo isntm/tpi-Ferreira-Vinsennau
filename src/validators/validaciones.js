@@ -42,3 +42,8 @@ export function esFechaValidaFlexible(fecha) {
   const dt = new Date(iso + "T00:00:00Z");
   return !isNaN(dt.getTime());
 }
+
+export function esEmailBasico(email) {
+  const e = String(email ?? "").trim();
+  return /^[^\s@]+@[^\s@]+(\.[^\s@]+)+$/.test(e);
+}
