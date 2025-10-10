@@ -1,0 +1,14 @@
+{
+  "name": "sistema-reservas-vuelos",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "TP Integrador - Sistema de reservas de vuelos con cambios de fecha",
+  "scripts": {
+    "iniciar": "node src/index.js",
+    "desarrollo": "node --watch src/index.js"
+  },
+  "author": "Ferreira - Vinsennau",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
