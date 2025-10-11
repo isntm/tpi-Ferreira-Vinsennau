@@ -1,6 +1,7 @@
 import { leerJSON, escribirJSONAtomico, asegurarArchivo } from "../db/archivos.js";
 import { esTexto, esEmailBasico, normalizarTexto } from "../validators/validaciones.js";
-import crypto from "node:crypto";
+// import crypto from "node:crypto"; Este ya no se usa, lo cambiamos por IDs mas legibles
+import { siguienteIdReserva } from "../db/ids.js";
 
 const RUTA_VUELOS = "src/db/flights.json";
 const RUTA_RESERVAS = "src/db/reservations.json";
@@ -28,7 +29,8 @@ export async function crearReserva({ vueloId, pasajeroNombre, pasajeroEmail }) {
   if (vuelo.asientosOcupados >= vuelo.capacidad) throw new Error("Sin disponibilidad en ese vuelo.");
 
   const reserva = {
-    id: crypto.randomUUID(),
+    // id: crypto.randomUUID(), Cambiado por IDs mas legibles
+    id: await siguienteIdReserva(),     // <-- ID corto y ordenado
     vueloId,
     pasajero: { nombre, email },
     estado: "ACTIVA",

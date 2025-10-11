@@ -24,5 +24,15 @@
         "email": "Davi@mail.com.ar"
       }
     ]
+  },
+  {
+    "id": "edba1d6b-e7c4-4097-838a-c5264d61ef17",
+    "numero": "F320",
+    "origen": "China",
+    "destino": "Taiwan",
+    "fecha": "2025-11-24",
+    "capacidad": 120,
+    "asientosOcupados": 0,
+    "pasajeros": []
   }
 ]

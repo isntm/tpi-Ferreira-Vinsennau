@@ -10,8 +10,10 @@ import {
   aISODesdeFlexible
 } from "../validators/validaciones.js";
 
-// 3) Usamos crypto para generar un ID único (UUID).
-import crypto from "node:crypto";
+// 3) Usamos crypto para generar un ID único (UUID). Esta la discontinuamos en ids.js para usar ids mas legibles
+// import crypto from "node:crypto";
+
+import { siguienteIdVuelo } from "../db/ids.js";
 
 // 4) Ruta del archivo JSON donde guardamos los vuelos.
 const RUTA_VUELOS = "src/db/flights.json";
@@ -61,7 +63,8 @@ export async function createVuelo({ numero, origen, destino, fecha, capacidad })
 
   // 12) Construimos el objeto vuelo con UUID y fecha en ISO (sin bloqueo de pasado)
   const vuelo = {
-    id: crypto.randomUUID(),          // UUID (sí, “largo” por ahora)
+    // id: crypto.randomUUID(),          // UUID (sí, “largo” por ahora)
+    id: await siguienteIdVuelo(),       // <-- ID corto y ordenado
     numero: _numero,
     origen: _origen,
     destino: _destino,
