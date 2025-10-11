@@ -1,17 +1,17 @@
 [
   {
-    "id": "VUELO-0001",
-    "numero": "F510",
-    "origen": "Japon",
-    "destino": "Estados Unidos",
-    "fecha": "2025-06-26",
+    "id": "VUELO-0002",
+    "numero": "f302",
+    "origen": "japon",
+    "destino": "alemania",
+    "fecha": "2025-12-23",
     "capacidad": 3,
     "asientosOcupados": 1,
     "pasajeros": [
       {
-        "idReserva": "RES-0001",
-        "nombre": "jason",
-        "email": "jason@jason.com"
+        "idReserva": "RES-0002",
+        "nombre": "kawasaki",
+        "email": "ka@wa.com"
       }
     ]
   }

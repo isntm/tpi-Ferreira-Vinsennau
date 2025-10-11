@@ -3,6 +3,9 @@ import { esTexto, esEmailBasico, normalizarTexto } from "../validators/validacio
 // import crypto from "node:crypto"; Este ya no se usa, lo cambiamos por IDs mas legibles
 import { siguienteIdReserva } from "../db/ids.js";
 
+// Normaliza IDs: recorta y pasa a MAYÚSCULAS
+const toId = (s) => String(s ?? "").trim().toUpperCase();
+
 const RUTA_VUELOS = "src/db/flights.json";
 const RUTA_RESERVAS = "src/db/reservations.json";
 
@@ -24,14 +27,17 @@ export async function crearReserva({ vueloId, pasajeroNombre, pasajeroEmail }) {
     (async () => { await asegurarArchivo(RUTA_RESERVAS, []); return leerJSON(RUTA_RESERVAS, []); })()
   ]);
 
-  const vuelo = vuelos.find(v => v.id === vueloId);
+  // definir ANTES de usar
+  const vueloIdNorm = toId(vueloId);
+
+  // comparar con IDs normalizados
+  const vuelo = vuelos.find(v => toId(v.id) === vueloIdNorm);
   if (!vuelo) throw new Error("El vuelo no existe.");
   if (vuelo.asientosOcupados >= vuelo.capacidad) throw new Error("Sin disponibilidad en ese vuelo.");
 
   const reserva = {
-    // id: crypto.randomUUID(), Cambiado por IDs mas legibles
-    id: await siguienteIdReserva(),     // <-- ID corto y ordenado
-    vueloId,
+    id: await siguienteIdReserva(),   // o crypto.randomUUID() si no usás contadores
+    vueloId: vueloIdNorm,             // ✅ guardar ya normalizado
     pasajero: { nombre, email },
     estado: "ACTIVA",
     creadaEl: new Date().toISOString()
@@ -48,3 +54,4 @@ export async function crearReserva({ vueloId, pasajeroNombre, pasajeroEmail }) {
 
   return reserva;
 }
+

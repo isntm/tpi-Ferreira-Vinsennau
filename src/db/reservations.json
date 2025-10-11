@@ -1,12 +1,12 @@
 [
   {
-    "id": "RES-0001",
-    "vueloId": "VUELO-0001",
+    "id": "RES-0002",
+    "vueloId": "VUELO-0002",
     "pasajero": {
-      "nombre": "jason",
-      "email": "jason@jason.com"
+      "nombre": "kawasaki",
+      "email": "ka@wa.com"
     },
     "estado": "ACTIVA",
-    "creadaEl": "2025-10-11T14:14:28.199Z"
+    "creadaEl": "2025-10-11T19:18:14.578Z"
   }
 ]
