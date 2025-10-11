@@ -1,12 +1,12 @@
 [
   {
-    "id": "8d266f20-e8a5-43bd-8fa1-ddf8359f62db",
-    "vueloId": "10232082-2216-4360-80d7-ad89af347bec",
+    "id": "RES-0001",
+    "vueloId": "VUELO-0001",
     "pasajero": {
-      "nombre": "Davi",
-      "email": "Davi@mail.com.ar"
+      "nombre": "jason",
+      "email": "jason@jason.com"
     },
     "estado": "ACTIVA",
-    "creadaEl": "2025-10-10T21:48:18.525Z"
+    "creadaEl": "2025-10-11T14:14:28.199Z"
   }
 ]

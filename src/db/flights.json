@@ -1,38 +1,18 @@
 [
   {
-    "id": "a90fe86d-431d-4509-b786-5527213ef73f",
-    "numero": "2131",
-    "origen": "malasia",
-    "destino": "argentina",
-    "fecha": "2025-10-15",
-    "capacidad": 231,
-    "asientosOcupados": 0,
-    "pasajeros": []
-  },
-  {
-    "id": "10232082-2216-4360-80d7-ad89af347bec",
-    "numero": "f121",
-    "origen": "argentina",
-    "destino": "brasil",
-    "fecha": "2025-12-25",
-    "capacidad": 123,
+    "id": "VUELO-0001",
+    "numero": "F510",
+    "origen": "Japon",
+    "destino": "Estados Unidos",
+    "fecha": "2025-06-26",
+    "capacidad": 3,
     "asientosOcupados": 1,
     "pasajeros": [
       {
-        "idReserva": "8d266f20-e8a5-43bd-8fa1-ddf8359f62db",
-        "nombre": "Davi",
-        "email": "Davi@mail.com.ar"
+        "idReserva": "RES-0001",
+        "nombre": "jason",
+        "email": "jason@jason.com"
       }
     ]
-  },
-  {
-    "id": "edba1d6b-e7c4-4097-838a-c5264d61ef17",
-    "numero": "F320",
-    "origen": "China",
-    "destino": "Taiwan",
-    "fecha": "2025-11-24",
-    "capacidad": 120,
-    "asientosOcupados": 0,
-    "pasajeros": []
   }
 ]
