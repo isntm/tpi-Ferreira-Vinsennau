@@ -4,6 +4,8 @@ import { leerLinea, pausar } from "./prompts.js";
 import { createVuelo, listVuelos } from "../service/flightService.js";
 // 12) Importamos servicios de reservas ya implementados
 import { crearReserva, listarReservas } from "../service/reservationService.js";
+// 13) Importamos funciones para formatear salidas (que se vean bien en consola)
+import { lineaReserva, tablaReservas, tablaVuelos } from "../utils/format.js";
 
 
 /**
@@ -45,8 +47,10 @@ export async function ejecutarMenuPrincipal() {
 
         case "2": {
           // 8) Listar vuelos
+          // const vuelos = await listVuelos();
+          // console.table(vuelos);
           const vuelos = await listVuelos();
-          console.table(vuelos);
+          console.table(tablaVuelos(vuelos));
           break;
         }
 
@@ -55,8 +59,10 @@ export async function ejecutarMenuPrincipal() {
           const vueloId = await leerLinea("ID de vuelo: ");
           const pasajeroNombre = await leerLinea("Nombre del pasajero: ");
           const pasajeroEmail  = await leerLinea("Email del pasajero: ");
+          // const r = await crearReserva({ vueloId, pasajeroNombre, pasajeroEmail });
+          // console.log("✅ Reserva creada:", r);
           const r = await crearReserva({ vueloId, pasajeroNombre, pasajeroEmail });
-          console.log("✅ Reserva creada:", r);
+          console.log("✅", lineaReserva(r));
           break;
         }
 
@@ -66,8 +72,10 @@ export async function ejecutarMenuPrincipal() {
 
         case "5": {
           // Listar reservas
+          // const reservas = await listarReservas();
+          // console.table(reservas);
           const reservas = await listarReservas();
-          console.table(reservas);
+          console.table(tablaReservas(reservas));
           break;
         }
 
