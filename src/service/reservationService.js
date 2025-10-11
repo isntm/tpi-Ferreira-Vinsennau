@@ -55,3 +55,73 @@ export async function crearReserva({ vueloId, pasajeroNombre, pasajeroEmail }) {
   return reserva;
 }
 
+// --- Agregar al final de src/service/reservationService.js ---
+
+/**
+ * Cambiar fecha (mover) una reserva a otro vuelo.
+ * Valida que la reserva esté ACTIVA, que el nuevo vuelo exista y tenga cupo,
+ * actualiza asientos/pasajeros en ambos vuelos y registra historial.
+ */
+export async function cambiarFechaReserva({ reservaId, nuevoVueloId }) {
+  // Normalizamos IDs (case-insensitive)
+  const resId   = toId(reservaId);
+  const nuevoId = toId(nuevoVueloId);
+
+  // Carga de datos
+  const [vuelos, reservas] = await Promise.all([
+    (async () => { await asegurarArchivo(RUTA_VUELOS, []);   return leerJSON(RUTA_VUELOS, []); })(),
+    (async () => { await asegurarArchivo(RUTA_RESERVAS, []); return leerJSON(RUTA_RESERVAS, []); })()
+  ]);
+
+  // 1) Buscar reserva ACTIVA
+  const reserva = reservas.find(x => toId(x.id) === resId && x.estado === "ACTIVA");
+  if (!reserva) throw new Error("La reserva no existe o no está ACTIVA.");
+
+  // 2) Vuelos origen/destino
+  const vueloOrigen  = vuelos.find(v => toId(v.id) === toId(reserva.vueloId)); // puede ser null si se borró
+  const vueloDestino = vuelos.find(v => toId(v.id) === nuevoId);
+  if (!vueloDestino) throw new Error("El nuevo vuelo no existe.");
+
+  // 3) Evitar no-op
+  if (toId(reserva.vueloId) === nuevoId) {
+    throw new Error("La reserva ya está asignada a ese vuelo.");
+  }
+
+  // 4) Cupo en destino
+  if (vueloDestino.asientosOcupados >= vueloDestino.capacidad) {
+    throw new Error("No hay disponibilidad en el nuevo vuelo.");
+  }
+
+  // 5) Actualizar ORIGEN: liberar asiento y remover pasajero
+  if (vueloOrigen) {
+    vueloOrigen.asientosOcupados = Math.max(0, vueloOrigen.asientosOcupados - 1);
+    vueloOrigen.pasajeros = (vueloOrigen.pasajeros || []).filter(p => p.idReserva !== reserva.id);
+  }
+
+  // 6) Actualizar DESTINO: ocupar asiento y agregar pasajero
+  vueloDestino.asientosOcupados += 1;
+  if (!Array.isArray(vueloDestino.pasajeros)) vueloDestino.pasajeros = [];
+  vueloDestino.pasajeros.push({
+    idReserva: reserva.id,
+    nombre: reserva.pasajero.nombre,
+    email: reserva.pasajero.email
+  });
+
+  // 7) Historial + mover puntero
+  if (!Array.isArray(reserva.historial)) reserva.historial = [];
+  reserva.historial.push({
+    deVueloId: reserva.vueloId,
+    aVueloId: vueloDestino.id,
+    fecha: new Date().toISOString()
+  });
+  reserva.vueloId = vueloDestino.id;
+
+  // 8) Persistencia atómica
+  await Promise.all([
+    escribirJSONAtomico(RUTA_VUELOS, vuelos),
+    escribirJSONAtomico(RUTA_RESERVAS, reservas)
+  ]);
+
+  // 9) Devolvemos la reserva actualizada
+  return reserva;
+}

@@ -6,7 +6,8 @@ import { createVuelo, listVuelos } from "../service/flightService.js";
 import { crearReserva, listarReservas } from "../service/reservationService.js";
 // 13) Importamos funciones para formatear salidas (que se vean bien en consola)
 import { lineaReserva, tablaReservas, tablaVuelos } from "../utils/format.js";
-
+// 14) Importamos la función para cambiar fecha de reserva
+import { cambiarFechaReserva } from "../service/reservationService.js";
 
 /**
  * 3) Muestra el menú principal y gestiona la navegación del usuario.
@@ -66,9 +67,19 @@ export async function ejecutarMenuPrincipal() {
           break;
         }
 
-        case "4":
-          console.log("\n[Aquí luego llamaremos a: cambiar fecha de reserva]");
+        case "4": {
+          const reservaId    = await leerLinea("ID de la reserva (ej. RES-0001): ");
+          const nuevoVueloId = await leerLinea("ID del NUEVO vuelo (ej. VUELO-0002): ");
+
+          const reserva = await cambiarFechaReserva({ reservaId, nuevoVueloId });
+
+          // Si usás helpers de formato:
+          console.log("✅", lineaReserva(reserva));
+
+          // Salida simple:
+          // console.log("✅ Reserva movida:", reserva.id, "→ Vuelo", reserva.vueloId);
           break;
+        }
 
         case "5": {
           // Listar reservas
