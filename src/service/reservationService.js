@@ -55,8 +55,6 @@ export async function crearReserva({ vueloId, pasajeroNombre, pasajeroEmail }) {
   return reserva;
 }
 
-// --- Agregar al final de src/service/reservationService.js ---
-
 /**
  * Cambiar fecha (mover) una reserva a otro vuelo.
  * Valida que la reserva esté ACTIVA, que el nuevo vuelo exista y tenga cupo,
