@@ -123,3 +123,24 @@ export async function cambiarFechaReserva({ reservaId, nuevoVueloId }) {
   // 9) Devolvemos la reserva actualizada
   return reserva;
 }
+
+// Reporte: vuelos más solicitados (por asientos ocupados)
+export async function vuelosMasSolicitados(limite = 5) {
+  await asegurarArchivo(RUTA_VUELOS, []);
+  const vuelos = await leerJSON(RUTA_VUELOS, []);
+  // ordena desc. por asientosOcupados y toma top N
+  return [...vuelos].sort((a, b) => b.asientosOcupados - a.asientosOcupados).slice(0, limite);
+}
+
+// Reporte: cuántos pasajeros cambiaron (únicos) y total de cambios
+export async function contarPasajerosQueCambiaron() {
+  await asegurarArchivo(RUTA_RESERVAS, []);
+  const reservas = await leerJSON(RUTA_RESERVAS, []);
+  const emailsUnicos = new Set(
+    reservas
+      .filter(r => (r.historial?.length || 0) > 0)
+      .map(r => r.pasajero.email)
+  );
+  const totalCambios = reservas.reduce((acc, r) => acc + (r.historial?.length || 0), 0);
+  return { pasajerosQueCambiaron: emailsUnicos.size, totalCambios };
+}

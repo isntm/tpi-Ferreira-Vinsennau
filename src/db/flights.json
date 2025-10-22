@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "id": "VUELO-0001",
+    "numero": "6509",
+    "origen": "tandil",
+    "destino": "mar del plata",
+    "fecha": "2025-11-25",
+    "capacidad": 2,
+    "asientosOcupados": 1,
+    "pasajeros": [
+      {
+        "idReserva": "RES-0002",
+        "nombre": "santiago",
+        "email": "san@tiago.com"
+      }
+    ]
+  },
+  {
+    "id": "VUELO-0002",
+    "numero": "F320",
+    "origen": "Madariaga",
+    "destino": "Chivilicoy",
+    "fecha": "2025-12-17",
+    "capacidad": 2,
+    "asientosOcupados": 1,
+    "pasajeros": [
+      {
+        "idReserva": "RES-0001",
+        "nombre": "Camilo",
+        "email": "ca@milo.com.ar"
+      }
+    ]
+  },
+  {
+    "id": "VUELO-0003",
+    "numero": "F2400",
+    "origen": "Rauch",
+    "destino": "Azul",
+    "fecha": "2025-11-28",
+    "capacidad": 2,
+    "asientosOcupados": 0,
+    "pasajeros": []
+  }
+]

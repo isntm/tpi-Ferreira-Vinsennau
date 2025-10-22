@@ -3,7 +3,7 @@ import { leerLinea, pausar } from "./prompts.js";
 // 2) Importamos servicios ya implementados
 import { createVuelo, listVuelos } from "../service/flightService.js";
 // 12) Importamos servicios de reservas ya implementados
-import { crearReserva, listarReservas } from "../service/reservationService.js";
+import { crearReserva, listarReservas, vuelosMasSolicitados, contarPasajerosQueCambiaron } from "../service/reservationService.js";
 // 13) Importamos funciones para formatear salidas (que se vean bien en consola)
 import { lineaReserva, tablaReservas, tablaVuelos } from "../utils/format.js";
 // 14) Importamos la función para cambiar fecha de reserva
@@ -90,13 +90,24 @@ export async function ejecutarMenuPrincipal() {
           break;
         }
 
-        case "6":
-          console.log("\n[Aquí luego llamaremos a: reporte de vuelos más solicitados]");
+        case "6": {
+          const limiteInp = await leerLinea("¿Cuántos mostrar? (ej. 5): ");
+          const limite = Number(limiteInp) > 0 ? Number(limiteInp) : 5;
+          const top = await vuelosMasSolicitados(limite);
+          if (top.length === 0) {
+            console.log("No hay vuelos cargados.");
+          } else {
+            console.table(tablaVuelos(top));
+          }
           break;
+        }
 
-        case "7":
-          console.log("\n[Aquí luego llamaremos a: reporte de cambios de reserva]");
+        case "7": {
+          const info = await contarPasajerosQueCambiaron();
+          console.log(`Pasajeros que cambiaron al menos una vez: ${info.pasajerosQueCambiaron}`);
+          console.log(`Total de cambios de reserva: ${info.totalCambios}`);
           break;
+        }
 
         case "0":
           // 9) Salir: rompemos el bucle en la próxima evaluación

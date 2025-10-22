@@ -1,12 +1,29 @@
 [
   {
-    "id": "RES-0002",
+    "id": "RES-0001",
     "vueloId": "VUELO-0002",
     "pasajero": {
-      "nombre": "kawasaki",
-      "email": "ka@wa.com"
+      "nombre": "Camilo",
+      "email": "ca@milo.com.ar"
     },
     "estado": "ACTIVA",
-    "creadaEl": "2025-10-11T19:18:14.578Z"
+    "creadaEl": "2025-10-22T00:28:53.357Z",
+    "historial": [
+      {
+        "deVueloId": "VUELO-0001",
+        "aVueloId": "VUELO-0002",
+        "fecha": "2025-10-22T00:29:42.201Z"
+      }
+    ]
+  },
+  {
+    "id": "RES-0002",
+    "vueloId": "VUELO-0001",
+    "pasajero": {
+      "nombre": "santiago",
+      "email": "san@tiago.com"
+    },
+    "estado": "ACTIVA",
+    "creadaEl": "2025-10-22T00:29:16.991Z"
   }
 ]
